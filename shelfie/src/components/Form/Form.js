@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 
 export default class Form extends Component {
     constructor() {
@@ -28,6 +29,15 @@ export default class Form extends Component {
         this.imgURLChangeHandler('')
     }
 
+    createProduct() {
+        const name = this.state.name
+        const price = this.state.price
+        const img_url = this.state.imgURL
+        axios.post('/api/product', {name, price, img_url})
+        this.props.getInventory()
+        this.resetInputBoxes()
+    }
+
     render() {
         return(
             <div>
@@ -35,7 +45,7 @@ export default class Form extends Component {
                 <input onChange={(e) => this.priceChangeHandler(e.target.value)} value={this.state.price}></input>
                 <input onChange={(e) => this.imgURLChangeHandler(e.target.value)} value={this.state.imgURL}></input>
                 <button onClick={() => this.resetInputBoxes}>Cancel</button>
-                <button>Add to Inventory</button>
+                <button onClick={() => this.createProduct}>Add to Inventory</button>
             </div>
         )
     }

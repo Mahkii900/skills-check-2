@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       inventory: []
     }
+    this.getInventory = this.getInventory.bind(this)
   }
 
   getInventory() {
@@ -34,7 +35,7 @@ class App extends Component {
             <Dashboard inventory={this.state.inventory}/>
           </div>
           <div>
-            <Form/>
+            <Form getInventory={this.getInventory}/>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@
             return( 
                 <div>
                     <div>
-                        {this.props.product.img_url}
+                        {this.props.product.image_url}
                     </div>
                     <div>
                         <h4>{this.props.product.name}</h4>

@@ -41,12 +41,16 @@ export default class Form extends Component {
     render() {
         return(
             <div>
-                <input onChange={(e) => this.nameChangeHandler(e.target.value)} value={this.state.name}></input>
-                <input onChange={(e) => this.priceChangeHandler(e.target.value)} value={this.state.price}></input>
-                <input onChange={(e) => this.imgURLChangeHandler(e.target.value)} value={this.state.imgURL}></input>
-                <button onClick={() => this.resetInputBoxes}>Cancel</button>
-                <button onClick={() => this.createProduct}>Add to Inventory</button>
+                <input type='text' ref='nameBox' onChange={(e) => this.nameChangeHandler(e.target.value)} value={this.state.name}></input>
+                <input ref='priceBox' onChange={(e) => this.priceChangeHandler(e.target.value)} value={this.state.price}></input>
+                <input type='text' ref='img_urlBox' onChange={(e) => this.imgURLChangeHandler(e.target.value)} value={this.state.imgURL}></input>
+                <button onClick={() => this.resetInputBoxes()}>Cancel</button>
+                <button onClick={() => this.createProduct()}>Add to Inventory</button>
             </div>
         )
     }
+
+    /*componentDidUpdate() {
+        console.log('howdy')
+    }*/
 }

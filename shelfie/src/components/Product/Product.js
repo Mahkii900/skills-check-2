@@ -1,8 +1,7 @@
     import React, {Component} from 'react'
-    import {Link} from 'react-router-dom'
-    import routes from '../../routes'
+    import {Link, withRouter} from 'react-router-dom'
 
-    export default class Product extends Component {
+    class Product extends Component {
         render() {
             return( 
                 <div>
@@ -29,3 +28,5 @@
             )
         }
     }
+
+    export default withRouter(Product)

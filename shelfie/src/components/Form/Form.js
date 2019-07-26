@@ -40,6 +40,17 @@ export default class Form extends Component {
         this.resetInputBoxes()
     }
 
+    updateProduct() {
+        const id = this.state.id
+        const name = this.state.name
+        const price = this.state.price
+        const img_url = this.state.imgURL
+        axios.put(`/api/product/${id}`, {name, price, img_url})
+        this.props.getInventory()
+        this.resetInputBoxes()
+        this.setState({editing: false, id: null})
+    }
+
     render() {
         return(
             <div>
@@ -47,7 +58,7 @@ export default class Form extends Component {
                 <input ref='priceBox' onChange={(e) => this.priceChangeHandler(e.target.value)} value={this.state.price}></input>
                 <input type='text' ref='img_urlBox' onChange={(e) => this.imgURLChangeHandler(e.target.value)} value={this.state.imgURL}></input>
                 <button onClick={() => this.resetInputBoxes()}>Cancel</button>
-                {this.state.editing ? (<button onClick={() => this.setState({editing: false})}>Save Changes</button>) 
+                {this.state.editing ? (<button onClick={() => this.updateProduct()}>Save Changes</button>) 
                 :(<button onClick={() => this.createProduct()}>Add to Inventory</button>)}
             </div>
         )
@@ -56,10 +67,8 @@ export default class Form extends Component {
     componentDidUpdate(props) {
         const oldProduct = props.selectedProduct
         const newProduct = this.props.selectedProduct
-        console.log(newProduct)
-        console.log(oldProduct)
         if (oldProduct !== newProduct && !this.state.editing) {
-            this.setState({editing: true, name: newProduct.name, price: newProduct.price, imgURL: newProduct.image_url})
+            this.setState({editing: true, id: newProduct.product_id, name: newProduct.name, price: newProduct.price, imgURL: newProduct.image_url})
         }
     }
 }

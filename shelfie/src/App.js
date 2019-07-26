@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   selectProduct(product) {
-    console.log(product)
     this.setState({selectedProduct: product})
   }
 

@@ -9,9 +9,11 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      inventory: []
+      inventory: [],
+      selectedProduct: {}
     }
     this.getInventory = this.getInventory.bind(this)
+    this.selectProduct = this.selectProduct.bind(this)
   }
 
   getInventory() {
@@ -24,6 +26,11 @@ class App extends Component {
     this.getInventory()
   }
 
+  selectProduct(product) {
+    console.log(product)
+    this.setState({selectedProduct: product})
+  }
+
   render() {
     return (
       <div className="App">
@@ -32,10 +39,14 @@ class App extends Component {
         </div>
         <div>
           <div>
-            <Dashboard inventory={this.state.inventory}/>
+            <Dashboard
+              inventory={this.state.inventory}
+              getInventory={this.getInventory}
+              selectProduct={this.selectProduct}
+            />
           </div>
           <div>
-            <Form getInventory={this.getInventory}/>
+            <Form getInventory={this.getInventory} selectedProduct={this.state.selectedProduct}/>
           </div>
         </div>
       </div>

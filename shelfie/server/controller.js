@@ -10,5 +10,20 @@ module.exports = {
         const {name, price, img_url} = req.body
         db.create_product({name, price, img_url})
         .then(res.sendStatus(200))
+    },
+
+    deleteProduct: (req, res) => {
+        const db = req.app.get('db')
+        const {id} = req.params
+        db.delete_product({id})
+        .then(res.sendStatus(200))
+    },
+
+    updateProduct: (req, res) => {
+        const db = req.app.get('db')
+        const {id} = req.params
+        const {name, price, image_url} = req.body
+        db.update_product({name, price, image_url, id})
+        .then(res.sendStatus(200))
     }
 }

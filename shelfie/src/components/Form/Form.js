@@ -7,7 +7,9 @@ export default class Form extends Component {
         this.state = {
             name: '',
             price: 0,
-            imgURL: ''
+            imgURL: '',
+            id: null,
+            editing: false
         }
     }
 
@@ -45,12 +47,19 @@ export default class Form extends Component {
                 <input ref='priceBox' onChange={(e) => this.priceChangeHandler(e.target.value)} value={this.state.price}></input>
                 <input type='text' ref='img_urlBox' onChange={(e) => this.imgURLChangeHandler(e.target.value)} value={this.state.imgURL}></input>
                 <button onClick={() => this.resetInputBoxes()}>Cancel</button>
-                <button onClick={() => this.createProduct()}>Add to Inventory</button>
+                {this.state.editing ? (<button onClick={() => this.setState({editing: false})}>Save Changes</button>) 
+                :(<button onClick={() => this.createProduct()}>Add to Inventory</button>)}
             </div>
         )
     }
 
-    /*componentDidUpdate() {
-        console.log('howdy')
-    }*/
+    componentDidUpdate(props) {
+        const oldProduct = props.selectedProduct
+        const newProduct = this.props.selectedProduct
+        console.log(newProduct)
+        console.log(oldProduct)
+        if (oldProduct !== newProduct && !this.state.editing) {
+            this.setState({editing: true, name: newProduct.name, price: newProduct.price, imgURL: newProduct.image_url})
+        }
+    }
 }

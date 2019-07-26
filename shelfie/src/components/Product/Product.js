@@ -5,6 +5,7 @@
             return( 
                 <div>
                     <div>
+                        {/*Change this part to an image html tage*/}
                         {this.props.product.image_url}
                     </div>
                     <div>

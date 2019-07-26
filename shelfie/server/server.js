@@ -5,6 +5,8 @@ const app = express()
 const {SERVER_PORT, CONNECTION_STRING} = process.env
 const ctrl = require('./controller')
 
+app.use(express.json())
+
 massive(CONNECTION_STRING)
     .then((database) => {
         app.set('db', database)
@@ -12,3 +14,4 @@ massive(CONNECTION_STRING)
     })
 
 app.get('/api/inventory', ctrl.getInventory)
+app.post('/api/product', ctrl.createProduct)

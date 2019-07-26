@@ -82,7 +82,11 @@ export default class Form extends Component {
         )
     }
 
-    componentDidUpdate() {
-        
+    componentDidUpdate(props) {
+        const oldProduct = props.selectedProduct
+        const newProduct = this.props.selectedProduct
+        if (oldProduct !== newProduct && !this.state.editing) {
+            this.setState({editing: true, id: newProduct.product_id, name: newProduct.name, price: newProduct.price, imgURL: newProduct.image_url})
+        }
     }
 }

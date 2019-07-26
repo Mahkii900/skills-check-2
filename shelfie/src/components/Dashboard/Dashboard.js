@@ -5,21 +5,34 @@ import Product from '../Product/Product'
 export default class Dashboard extends Component {
     constructor() {
         super()
+        this.state ={
+            inventory: []
+        }
         this.deleteProduct = this.deleteProduct.bind(this)
     }
+
+    getInventory() {
+        axios.get('/api/inventory').then(res => {
+          this.setState({inventory: res.data})
+        })
+    }
+
+    componentDidMount() {
+        this.getInventory()
+    }
+
     deleteProduct(id) {
         axios.delete(`/api/product/${id}`).then(() => {
-            this.props.getInventory()
+            this.getInventory()
         })
     }
 
     render() {
-        const products = this.props.inventory.map((product) => {
+        const products = this.inventory.map((product) => {
             return <Product
                         key={product.name}
                         product={product}
                         delete={this.deleteProduct}
-                        selectProduct={this.props.selectProduct}
                     />
         })
         return(

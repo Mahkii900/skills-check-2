@@ -1,4 +1,6 @@
     import React, {Component} from 'react'
+    import {Link} from 'react-router-dom'
+    import routes from '../../routes'
 
     export default class Product extends Component {
         render() {
@@ -17,9 +19,12 @@
                         </div>
                         <div>
                             <button onClick={() => this.props.delete(this.props.product.product_id)}>Delete</button>
-                            <button onClick={() => this.props.selectProduct(this.props.product)}>Edit</button>
+                            <Link to={`/edit/${this.props.product.product_id}`}>
+                                <button>Edit</button>
+                            </Link>
                         </div>
                     </div>
+                    {routes}
                 </div>
             )
         }

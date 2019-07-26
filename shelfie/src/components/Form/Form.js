@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
+import routes from '../../routes'
 
 export default class Form extends Component {
     constructor() {
@@ -10,6 +12,23 @@ export default class Form extends Component {
             imgURL: '',
             id: null,
             editing: false
+        }
+    }
+
+    getProduct(id) {
+        axios.get(`/api/product/${id}`).then(res => {
+            let {name, price, image_url} = res.data
+            this.setState({name: name, price: price, imgURL: image_url, id: id})
+        })
+    }
+
+    componentDidMount() {
+        const {params} = this.props.match
+        if (params) {
+            this.getProduct(params.id)
+            this.setState({editing: false})
+        } else {
+            this.setState({editing: true})
         }
     }
 
@@ -36,8 +55,8 @@ export default class Form extends Component {
         const price = this.state.price
         const img_url = this.state.imgURL
         axios.post('/api/product', {name, price, img_url})
-        this.props.getInventory()
         this.resetInputBoxes()
+        
     }
 
     updateProduct() {
